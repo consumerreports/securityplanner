@@ -1,0 +1,74 @@
+@import (reference) "vars-queries.less";
+@import (reference) "mixins.less";
+
+/*
+
+Use these inside the styles themselves, e.g.
+  body.platform & {
+    ...
+  }
+*/
+
+body {
+	&.platform-browser-msie {
+
+	}
+
+	&.platform-browser-msedge {
+
+	}
+
+	&.platform-browser-safari {
+
+	}
+
+	&.platform-browser-chrome {
+
+	}
+
+	&.platform-browser-firefox {
+
+	}
+
+	&.platform-os-android {
+
+	}
+
+	&.platform-device-iphone {
+
+	}
+
+	&.platform-os-ios {
+
+	}
+
+	&.platform-os-ios-7 {
+		.sectionPageHolder {
+			.ios-7-height(1.0, 0px);
+		}
+
+		.pageCover .middle {
+			.ios-7-height(1.0, 50px);
+		}
+
+		.pageReport .header .image {
+			.ios-7-height(0.25, 0px);
+		}
+
+		.overlay {
+			.ios-7-height(1.0, 0px);
+		}
+
+		.overlay-share .background {
+			.ios-7-height(1.0, 0px);
+		}
+
+		.pageReport .content .footer-small {
+			@media @media-tiny {
+				height: 160px;
+				min-height: 160px;
+				padding: 0 20px 106px;
+			}
+		}
+	}
+}

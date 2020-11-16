@@ -1,0 +1,143 @@
+@import (reference) "vars-colors.less";
+@import (reference) "vars-fonts.less";
+@import (reference) "vars-index.less";
+@import (reference) "vars-queries.less";
+@import (reference) "vars-transitions.less";
+@import (reference) "mixins.less";
+@import (reference) "animations.less";
+@import (reference) "ui-common.less";
+
+.filter-menu-text() {
+	.font-family--body();
+	color: @color-black-text;
+	font-size: 16px;
+}
+
+.overlayToolsFilter {
+	& > .mask {
+		& > .content {
+			pointer-events: all;
+
+			& > .wrapper {
+				.dimension-max-width-plus-side-margins--max-width();
+				margin: 0 auto;
+				padding: 30px 20px;
+				position: relative;
+				width: 100%;
+
+				@media @media-small {
+					padding: 30px 32px;
+				}
+
+				& > .header {
+					align-items: center;
+					display: flex;
+					justify-content: flex-end;
+
+					&.has-updated {
+						justify-content: space-between;
+					}
+
+					.header-button {
+						.filter-menu-text();
+						.reset-button();
+						text-decoration: underline;
+
+						&--done {
+							align-self: flex-end;
+						}
+
+						.accessibility-element-yellow-child(~"span");
+					}
+				}
+
+				& > .body {
+					& > .filter-category {
+						& > .filter-category-name {
+							.font-family--headline();
+							color: @color-black-text;
+							font-size: 20px;
+							font-weight: 700;
+							padding: 35px 0 20px;
+
+							@media @media-small {
+								font-size: 20px;
+								padding: 50px 0 20px;
+							}
+						}
+
+						& > .filter-list {
+							.reset-list();
+							padding-left: 30px;
+
+							.direction-rtl& {
+								padding-left: 0;
+								padding-right: 30px;
+							}
+
+							& > .filter-list-item {
+								border-top: 1px solid @color-black-xfade;
+								position: relative;
+
+								&:last-child {
+									border-bottom: 1px solid @color-black-xfade;
+								}
+
+								& > .checkmark {
+									align-items: center;
+									display: flex;
+									height: 100%;
+									left: -30px;
+									position: absolute;
+
+									.direction-rtl& {
+										left: auto;
+										right: -30px;
+									}
+
+									& > .icon {
+										background-size: contain;
+										height: 0;
+										margin-left: -3px;
+
+										.direction-rtl& {
+											margin-left: 0;
+											margin-right: -3px;
+										}
+
+										opacity: 0;
+										transition: all 0.2s;
+										width: 0;
+									}
+
+									&.is-active {
+										& > .icon {
+											height: 10px;
+											margin-left: 0;
+											margin-right: 0;
+											opacity: 1;
+											width: 15px;
+										}
+									}
+								}
+
+								& > .filter-name {
+									.filter-menu-text();
+									.reset-button();
+									padding: 13px 0;
+									width: 100%;
+
+									.direction-rtl& {
+										text-align: right;
+									}
+
+									.accessibility-element-yellow-child(~"span");
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

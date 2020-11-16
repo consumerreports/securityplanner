@@ -1,0 +1,424 @@
+@import (reference) "vars-colors.less";
+@import (reference) "vars-fonts.less";
+@import (reference) "vars-index.less";
+@import (reference) "vars-queries.less";
+@import (reference) "vars-transitions.less";
+@import (reference) "mixins.less";
+@import (reference) "ui-common.less";
+
+@time-animation: 0.6s;
+@transition-animation: cubic-bezier(.01, .89, .74, .99);
+
+@transition-scale-show: cubic-bezier(0.19, 1, 0.22, 1);
+@transition-scale-hide: cubic-bezier(0.06, 0.43, 0.63, 0.99);
+@transition-fade-show: linear;
+@time-delay-fade-show: 0.2s;
+
+.overlay {
+	box-sizing: border-box;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: @z-index-overlays;
+
+	& > .cover {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	& > .mask {
+		-webkit-overflow-scrolling: touch;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		display: flex;
+		justify-content: center;
+		opacity: 0.99999;
+		overflow: hidden;
+
+		body.platform-os-android & {
+			// This should not be necessary, but it's used to force position:float elements to show in Chrome Mobile
+			clip: rect(0vh 100vw 100vh 0vw);
+		}
+
+		& > .background {
+			background-color: @color-white-true;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+
+			&.background-dark {
+				background-color: fade(@color-black-true, 70%);
+			}
+		}
+
+		& > .content {
+			-webkit-overflow-scrolling: touch;
+			align-items: flex-start;
+			bottom: 0;
+			box-sizing: border-box;
+			display: flex;
+			justify-content: center;
+			left: 0;
+			opacity: 1;
+			overflow-y: auto;
+			overflow-x: hidden;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 100%;
+
+			& > .wrapper {
+				box-sizing: border-box;
+				color: @color-black-text;
+				opacity: 1;
+				z-index: 1;
+				transition: opacity @time-animation linear;
+			}
+
+			/*
+			This is weird and should not be needed, but it prevents a Chrome bug where transformed elements
+			don't take the left scroll bar positioning into account correctly in right-to-left containers
+			and cause the content to shift once transitions end. So, if we force everything to be "transformed",
+			it looks correct even though the general padding is wrong (but at least it is consistent).
+			*/
+			.direction-rtl& {
+				transform: translateZ(0);
+				& > .wrapper {
+					transform: translateZ(0);
+				}
+			}
+		}
+	}
+
+	&.direction-rtl {
+		& > .mask {
+			& > .close {
+				left: 0px;
+				right: auto;
+
+				@media @media-small {
+					left: 22px;
+				}
+
+				@media @media-large {
+					left: 40px;
+				}
+
+				&.small {
+					@media @media-small {
+						left: 0px;
+					}
+					@media @media-large {
+						left: 20px;
+					}
+				}
+			}
+		}
+	}
+
+	&.hiding {
+		& > .mask {
+			&.mask-fading {
+				transition: opacity @time-animation/2 linear;
+			}
+
+			&.mask-cropping {
+				animation: tools-clip-hide @time-animation/2 @transition-scale-hide backwards;
+			}
+
+			.show-fading {
+				animation: fade-out @time-animation/2 @transition-fade-show forwards;
+			}
+
+			.show-fading-full {
+				animation: fade-out @time-animation both;
+			}
+
+			.show-sliding-left,
+			.show-sliding-right {
+				transition: transform @time-animation/2 linear;
+			}
+
+			.show-sliding-up-full {
+				transform: translateY(0);
+			}
+		}
+	}
+
+	&.hiding, &.hidden {
+		& > .mask {
+
+			&.mask-fading {
+				opacity: 0;
+			}
+
+			&.mask-cropping {
+				clip: rect(0vh 100vw 100vh 0vw);
+			}
+
+			.show-sliding-left {
+				opacity: 1;
+				transform: translate(-30px, 0);
+
+				.direction-rtl& {
+					transform: translate(30px, 0);
+				}
+			}
+
+			.show-sliding-right {
+				opacity: 1;
+				transform: translate(30px, 0);
+
+				.direction-rtl& {
+					transform: translate(-30px, 0);
+				}
+			}
+
+			.show-sliding-up-full {
+				transition: transform @time-animation @transition-ease-out-cubic;
+				transform: translateY(100vh);
+			}
+		}
+	}
+
+	&.showing {
+		& > .mask {
+			&.mask-fading {
+				opacity: 0.9999;
+				transition: opacity @time-animation/4 linear;
+			}
+
+			&.mask-cropping {
+				animation: tools-clip-show @time-animation @transition-scale-show backwards;
+			}
+
+			& > .close {
+				animation: rotate-close .35s ease-in both;
+			}
+
+			.show-fading {
+				animation: fade-in @time-animation @transition-fade-show @time-delay-fade-show both;
+			}
+
+			.show-fading-full {
+				animation: fade-in @time-animation @transition-fade-show both;
+			}
+
+			.show-sliding-left,
+			.show-sliding-right {
+				opacity: 1;
+				transform: translate(0, 0);
+				transition: transform @time-animation ease-out;
+
+				.direction-rtl& {
+					transform: translate(0, 0);
+				}
+			}
+
+			.show-sliding-up-full {
+				transform: translateY(0);
+			}
+		}
+	}
+}
+
+.overlay-simple {
+	box-sizing: border-box;
+	top: 0;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	width: 100%;
+	z-index: @z-index-overlays;
+	background: @color-white-true;
+
+	& > .cover {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	& > .background {
+		background-color: @color-white-true;
+	}
+
+	& > .back {
+		.font-style--body-16-body();
+		.reset-touch-selectors();
+		color: @color-teal-xdark;
+		cursor: pointer;
+		opacity: 0.7;
+		position: absolute;
+		right: 1.5em;
+		top: 1.8em;
+		z-index: @z-index-overlays + @z-index-floating-ui;
+		transition: opacity 0.1s linear, transform 0.2s @transition-ease-out-back--big;
+
+		@media @media-small {
+			right: 2em;
+			top: 2em;
+		}
+
+		@media @media-large {
+			top: 2.5em;
+		}
+
+		&:hover {
+			opacity: 1;
+		}
+
+		.accessibility-element-yellow();
+
+		.direction-rtl& {
+			left: 1.5em;
+			right: auto;
+
+			@media @media-small {
+				left: 2em;
+			}
+		}
+	}
+
+	& > .content {
+		-webkit-overflow-scrolling: touch;
+		align-items: flex-start;
+		background-color: @color-white-true;
+		bottom: 0;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: center;
+		left: 0;
+		opacity: 1;
+		overflow-y: auto;
+		overflow-x: hidden;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100%;
+
+		& > .wrapper {
+			box-sizing: border-box;
+			color: @color-black-text;
+			opacity: 1;
+			z-index: 1;
+		}
+	}
+
+	&.showing {
+		animation: fade-in @time-animation/2 ease-out both;
+
+		& > .content {
+			animation: fade-in @time-animation/2 ease-in @time-animation/2 both;
+		}
+	}
+
+	&.hiding {
+		animation: fade-out @time-animation/2 ease-in @time-animation/2 both;
+
+		& > .content {
+			animation: fade-out @time-animation/2 ease-out both;
+		}
+	}
+}
+
+.close {
+	align-items: center;
+	position: absolute;
+	cursor: pointer;
+	.font-family--headline();
+	color: @color-action-secondary;
+	font-weight: 600;
+	font-size: 24px;
+	display: flex;
+	height: 20px;
+	justify-content: center;
+	opacity: 0.7;
+	padding: 20px 20px 20px 50px;
+	margin-left: -20px;
+	left: 20px;
+	top: 0px;
+	transform: scale(1.001, 1.001);
+	transition: opacity 0.1s linear, transform 0.2s @transition-ease-out-cubic;
+	width: 20px;
+	z-index: @z-index-overlays + @z-index-floating-ui;
+
+	&.right {
+		left: initial;
+		right: 20px;
+	}
+
+	@media @media-small {
+		width: 25px;
+		height: 25px;
+		left: 22px;
+		top: 22px;
+
+		&.right {
+			left: initial;
+			right: 22px;
+		}
+	}
+
+	@media @media-medium {
+		width: 30px;
+		height: 30px;
+	}
+
+	@media @media-large {
+		left: 40px;
+		top: 40px;
+	}
+
+	& > img {
+		margin-right: 8px;
+		width: 100%;
+		height: 100%;
+	}
+
+	.common-image-container {
+		width: 29px;
+		height: 29px;
+	}
+
+	&:hover {
+		opacity: 1;
+		transform: scale(1.2, 1.2);
+	}
+
+	&.small {
+		background-color: initial;
+
+		@media @media-small {
+			right: 0px;
+			top: 0px;
+		}
+		@media @media-large {
+			right: 20px;
+			top: 20px;
+		}
+
+		& > img {
+			transform: scale(0.7, 0.7);
+		}
+	}
+
+	.accessibility-element-yellow-child(~"img");
+}

@@ -1,0 +1,111 @@
+@import (reference) "vars-colors.less";
+@import (reference) "vars-fonts.less";
+@import (reference) "vars-index.less";
+@import (reference) "vars-queries.less";
+@import (reference) "vars-transitions.less";
+@import (reference) "mixins.less";
+@import (reference) "animations.less";
+@import (reference) "ui-common.less";
+
+.overlayShare {
+	background-color: rgba(0, 0, 0, 0.56);
+
+	&.direction-rtl {
+	}
+
+	@time-animation: 0.3s;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	transition: all @time-animation linear;
+
+	.background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		cursor: pointer;
+	}
+
+	.share {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+
+		@item-size: 136px;
+		@item-margin: 24px;
+
+		.item {
+			margin: @item-margin/2;
+			background-color: @color-white-true;
+			border-radius: @item-size / 2;
+			transform: translateZ(0);
+
+			a {
+				width: 136px;
+				height: 136px;
+
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+
+				img {
+					opacity: 0.9;
+					transition: opacity 0.2s linear, transform 0.5s @transition-ease-out-back--big;
+					transform: translateZ(0);
+				}
+
+				.accessibility-element-yellow();
+			}
+
+			&:hover,
+			&:focus {
+				img {
+					opacity: 1;
+					transform: scale(1.1, 1.1);
+				}
+			}
+		}
+	}
+
+	&.hidden {
+		background-color: rgba(0, 0, 0, 0);
+
+		.share {
+			.item {
+				opacity: 0;
+				transform: scale(0.2, 0.2);
+			}
+		}
+	}
+
+	&.showing {
+		background-color: rgba(0, 0, 0, 0.56);
+
+		.share {
+			:nth-of-type(1) { .share-showing(@time-animation, @time-animation*0); }
+			:nth-of-type(2) { .share-showing(@time-animation, @time-animation*0.15); }
+			:nth-of-type(3) { .share-showing(@time-animation, @time-animation*0.3); }
+			:nth-of-type(4) { .share-showing(@time-animation, @time-animation*0.45); }
+		}
+	}
+
+	&.hiding {
+		background-color: rgba(0, 0, 0, 0);
+
+		.share {
+			:nth-of-type(1) { .share-hiding(@time-animation, @time-animation*0); }
+			:nth-of-type(2) { .share-hiding(@time-animation, @time-animation*0.15); }
+			:nth-of-type(3) { .share-hiding(@time-animation, @time-animation*0.3); }
+			:nth-of-type(4) { .share-hiding(@time-animation, @time-animation*0.45); }
+		}
+	}
+}

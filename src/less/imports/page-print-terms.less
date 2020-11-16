@@ -1,0 +1,39 @@
+@import (reference) "vars-colors.less";
+@import (reference) "vars-fonts.less";
+@import (reference) "vars-index.less";
+@import (reference) "vars-queries.less";
+@import (reference) "vars-transitions.less";
+@import (reference) "mixins.less";
+@import (reference) "ui-common.less";
+
+@font-scale: 0.48;
+@color-details: #5c5c5c;
+@margin-default: 1.8em;
+@color-foreground: @color-black-true;
+
+.pagePrintTerms {
+	background-color: @color-white-true;
+	box-sizing: border-box;
+	margin: 15px auto;
+	padding: 30px 40px;
+	@media only print {
+		padding: 0;
+	}
+	width: 670px;
+	color: @color-foreground;
+	
+    .middle {
+		max-width: 922px;
+		margin: 0 auto;
+		box-sizing: border-box;
+		padding: 0 20px;
+
+		@media @media-small {
+			padding: 0 10vw;
+		}
+
+		@media @media-medium {
+			padding: 0 32px;
+		}
+	}
+}

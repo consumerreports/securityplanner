@@ -1,0 +1,31 @@
+/* use: @media @media-tiny, @medium { ... } */
+
+// Grid sizes: 480, 960, 1280, 1980
+
+// This used to be 1280, but was changed because some of the biggest "medium" screen content widths were actually larger than the "large"
+@media-extra-large:  ~" only screen and (min-width: 1280px)";
+
+@media-large:  ~" only screen and (min-width: 1184px)";
+
+@media-medium: ~" only screen and (min-width: 960px)";
+
+@media-medium-only: ~" only screen and (min-width: 960px) and (max-width: 1183px)";
+
+@media-small: ~" only screen and (min-width: 640px)";
+
+@media-small-only: ~" only screen and (min-width: 640px) and (max-width: 959px)";
+
+@media-tiny: ~" only screen and (max-width: 639px)";
+
+/* Device-specific queries */
+@media-iphone-4-portrait: ~"only screen and (device-width : 320px) and (device-height : 480px) and (orientation : portrait)";
+
+@media-iphone-4-landscape: ~"only screen and (device-width : 320px) and (device-height : 480px) and (orientation : landscape)";
+
+@media-iphone-5-portrait: ~"only screen and (device-width : 320px) and (device-height : 568px) and (orientation : portrait)";
+
+@media-iphone-5-landscape: ~"only screen and (device-width : 320px) and (device-height : 568px) and (orientation : landscape)";
+
+@media-ipad-portrait: ~"only screen and (device-width : 768px) and (device-height : 1024px) and (orientation : portrait)";
+
+@media-ipad-landscape: ~"only screen and (device-width : 768px) and (device-height : 1024px) and (orientation : landscape)";

@@ -1,0 +1,5 @@
+AuthName "Security Planner_"
+AuthType Basic
+AuthUserFile /home/168076/domains/staging.work.co/html/gg/spqa/.htpasswd
+AuthGroupFile /dev/null
+require valid-user

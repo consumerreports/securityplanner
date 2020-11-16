@@ -1,0 +1,301 @@
+@import (reference) "vars-queries.less";
+
+/* Resets */
+.reset-font() {
+	font-weight: normal;
+	font-style: normal;
+}
+
+.reset-list() {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.reset-link() {
+	direction: ltr;
+	color: inherit;
+	font-weight: inherit;
+
+	&:hover,
+	&:focus {
+		color: inherit;
+		text-decoration: inherit;
+	}
+}
+
+.reset-button() {
+	background: transparent;
+	border: 0;
+	outline: none;
+	padding: 0;
+	text-align: left;
+}
+
+.reset-touch-selectors() {
+	outline: none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-moz-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* Height that the locator title takes, so other elements can move down */
+.locator-title-height--height() {
+	height: 120px;
+
+	@media @media-medium {
+		height: 75px;
+	}
+
+	@media @media-large {
+		height: 40px;
+	}
+}
+
+.locator-title-height--margin-top() {
+	margin-top: 120px;
+
+	@media @media-medium {
+		margin-top: 75px;
+	}
+
+	@media @media-large {
+		margin-top: 40px;
+	}
+}
+
+.locator-title-height--padding-top() {
+	padding-top: 120px;
+
+	@media @media-medium {
+		padding-top: 75px;
+	}
+
+	@media @media-large {
+		padding-top: 40px;
+	}
+}
+
+/**
+ * Calculates position of .location elements
+ * @direction-modifier is used for rtl: the translate should be negative, so pass in -1.
+ */
+
+.deselected-loop(@position, @direction-modifier) when (@position > 0) {
+	.deselected-loop(@position - 1, @direction-modifier);
+	&.before-@{position} {
+		transform: translate((@side-margin-tiny - (@size + @margin) * @position - (1 - @selectedScale) * @size * 0.5) * @direction-modifier, 0);
+	}
+	&.after-@{position} {
+		transform: translate((@side-margin-tiny + (@size + @margin) * @position + (1 - @selectedScale) * @size * 0.5) * @direction-modifier, 0);
+	}
+
+	@media @media-small {
+		&.before-@{position} {
+			transform: translate((@side-margin - (@size + @margin) * @position - (1 - @selectedScale) * @size * 0.5) * @direction-modifier, 0);
+		}
+		&.after-@{position} {
+			transform: translate((@side-margin + (@size + @margin) * @position + (1 - @selectedScale) * @size * 0.5) * @direction-modifier, 0);
+		}
+	}
+
+	@media @media-extra-large {
+		@half-margin: @margin-large / 2;
+		&.before-@{position} {
+			transform: translate(0, ((@half-margin + @size) * @position * -1));
+		}
+		&.after-@{position} {
+			transform: translate(0, (@half-margin + @size-selected) + ((@half-margin + @size) * (@position - 1)));
+		}
+	}
+}
+
+/* Max width and margins */
+@dimension-side-margins: 32px;
+@dimension-max-width: 1120px;
+
+.dimension-max-width--max-width {
+	max-width: @dimension-max-width;
+}
+
+.dimension-max-width--max-width-half {
+	max-width: @dimension-max-width / 2;
+}
+
+.dimension-max-width-plus-side-margins--max-width {
+	max-width: @dimension-max-width + @dimension-side-margins + @dimension-side-margins;
+}
+
+.dimension-side-margins--margin(@t:1; @r:1; @b:1; @l:1) {
+	margin: @dimension-side-margins * @t @dimension-side-margins * @r @dimension-side-margins * @b @dimension-side-margins * @l;
+}
+
+.dimension-side-margins--padding(@t:1; @r:1; @b:1; @l:1) {
+	padding: @dimension-side-margins * @t @dimension-side-margins * @r @dimension-side-margins * @b @dimension-side-margins * @l;
+}
+
+/* Page Padding */
+.page-side-padding {
+	padding-left: 20px;
+	padding-right: 20px;
+
+	@media @media-small {
+		padding-left: 32px;
+		padding-right: 32px;
+	}
+}
+
+/* Flexbox */
+.flex-full-width {
+	flex-basis: 100%;
+	max-width: 100%;
+}
+
+.flex-half-width {
+	flex-basis: 50%;
+	max-width: 50%;
+}
+
+.flex-auto-width {
+	flex-basis: auto;
+	max-width: none;
+}
+
+.flex-pct-width(@pct) {
+	flex-basis: @pct;
+	max-width: @pct;
+}
+
+/* Word wrap */
+.word-wrap {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-all;
+	word-break: break-word;
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	hyphens: none;
+}
+
+.word-wrap-url {
+	.word-wrap();
+	word-break: break-all;
+}
+
+.ellipsis-wrap {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* Device-specific (used to bypass vh units) */
+.ios-7-height(@pct, @subtract) {
+	@media @media-iphone-4-portrait {
+		height: calc(~"480px * @{pct} - @{subtract}");
+	}
+
+	@media @media-iphone-5-portrait {
+		height: calc(~"568px * @{pct} - @{subtract}");
+	}
+
+	@media @media-iphone-5-landscape {
+		height: calc(~"320px * @{pct} - @{subtract}");
+	}
+
+	@media @media-iphone-4-landscape {
+		height: calc(~"320px * @{pct} - @{subtract}");
+	}
+
+	@media @media-ipad-portrait {
+		height: calc(~"1024px * @{pct} - @{subtract}");
+	}
+
+	@media @media-ipad-landscape {
+		height: calc(~"768px * @{pct} - @{subtract}");
+	}
+}
+
+
+/* Left-to-right/right-to-left auto properties */
+.--mixin-directional-border-left(@params: 1px solid #000000) {
+	.direction-ltr & {  border-left: @params; }
+	.direction-rtl & { border-right: @params; }
+}
+
+.--mixin-directional-border-left-width(@params: 1px) {
+	.direction-ltr & {  border-left-width: @params;  border-left-style: solid }
+	.direction-rtl & { border-right-width: @params; border-right-style: solid }
+}
+
+.--mixin-directional-border-right(@params: 1px solid #000000) {
+	.direction-ltr & { border-right: @params; }
+	.direction-rtl & {  border-left: @params; }
+}
+
+.--mixin-directional-border-right-width(@params: 1px) {
+	.direction-ltr & { border-right-width: @params; border-right-style: solid }
+	.direction-rtl & {  border-left-width: @params;  border-left-style: solid }
+}
+
+.--mixin-directional-margin-left(@params: 1px) {
+	.direction-ltr & {  margin-left: @params; }
+	.direction-rtl & { margin-right: @params; }
+}
+
+.--mixin-directional-margin-right(@params: 1px) {
+	.direction-ltr & { margin-right: @params; }
+	.direction-rtl & {  margin-left: @params; }
+}
+
+.--mixin-directional-padding-left(@params: 1px) {
+	.direction-ltr & {  padding-left: @params; }
+	.direction-rtl & { padding-right: @params; }
+}
+
+.--mixin-directional-padding-right(@params: 1px) {
+	.direction-ltr & { padding-right: @params; }
+	.direction-rtl & {  padding-left: @params; }
+}
+
+.accessibility-element-yellow {
+	body & {
+		outline: 0px solid rgba(255, 255, 0, 0);
+		&:focus {
+			outline: 0px solid rgba(255, 255, 0, 0);
+		}
+	}
+
+	body.accessibility-ada-active & {
+		outline: 3px solid rgba(255, 255, 0, 0);
+		transition: outline 0.07s linear;
+		&:focus {
+			outline: 3px solid rgba(255, 255, 0, 1);
+			box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7), 0 0 6px 3px rgba(0, 0, 0, 0.9) !important;
+			opacity: 1;
+		}
+	}
+}
+
+
+
+
+.accessibility-element-yellow-child(@child: ".somechild") {
+	body & {
+		outline: 0px solid rgba(255, 255, 0, 0);
+		&:focus {
+			outline: 0px solid rgba(255, 255, 0, 0);
+		}
+	}
+
+	body.accessibility-ada-active & {
+		&:focus {
+			opacity: 1;
+			@{child} {
+				outline: 3px solid rgba(255, 255, 0, 1);
+				box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.7), 0 0 6px 3px rgba(0, 0, 0, 0.9) !important;
+				opacity: 1;
+			}
+		}
+	}
+
+}

@@ -1,0 +1,297 @@
+@import (reference) "vars-colors.less";
+@import (reference) "vars-fonts.less";
+@import (reference) "vars-queries.less";
+@import (reference) "vars-transitions.less";
+@import (reference) "mixins.less";
+@import (reference) "ui-common.less";
+@import (reference) "animations.less";
+
+.pageStatements {
+	align-items: center;
+	background-color: @color-white-default;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin: 0;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+
+	.content {
+		box-sizing: border-box;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		width: 100%;
+		.locator-title-height--padding-top();
+
+		.body {
+			.page-side-padding();
+			.dimension-max-width-plus-side-margins--max-width();
+			margin: 0 auto;
+			box-sizing: border-box;
+
+			.statements {
+				.accessibility-element-yellow();
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				padding-top: 25px;
+
+				@media @media-small {
+					justify-content: flex-start;
+					padding-top: 35px;
+				}
+
+				.statement {
+					@time-selection: 0.4s;
+					@check-size: 54px;
+					@check-top: 14px;
+					@check-right: 20px;
+
+					.reset-touch-selectors();
+					.accessibility-element-yellow();
+
+					align-items: center;
+					box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.30);
+					box-sizing: border-box;
+					background-color: @color-white-background;
+					cursor: pointer;
+					display: flex;
+					flex-basis: calc(~"50% - 5px");
+					flex-direction: column;
+					height: 190px;
+					justify-content: space-between;
+					margin-bottom: 10px;
+					max-width: calc(~"50% - 5px");
+					overflow: hidden;
+					padding: 15px;
+					position: relative;
+					transform: translateZ(0);
+					transition: box-shadow @time-selection ease-out;
+					width: 23%;
+
+					@media @media-small {
+						flex-basis: calc(~"33.33% - 10px");
+						height: calc(~"(100vw - 254px) / 2");
+						max-height: 360px;
+						margin-bottom: 15px;
+						margin-right: 15px;
+						max-width: calc(~"33.33% - 10px");
+						min-height: 200px;
+					}
+
+					@media @media-small-only {
+						&:nth-child(3n) {
+							margin-right: 0;
+						}
+					}
+
+					@media @media-medium {
+						flex-basis: calc(~"25% - 12px");
+						max-width: calc(~"25% - 12px");
+						min-height: 220px;
+						max-height: 320px;
+						height: calc(~"(100vh - 236px) / 2");
+
+						&:nth-child(4n) {
+							margin-right: 0;
+						}
+					}
+
+					@media @media-large {
+						min-height: 245px;
+						max-height: 328px;
+						height: calc(~"(100vh - 254px) / 2");
+					}
+
+					&.is-disabled {
+						box-shadow: none;
+						background-color: #dddddd;
+						cursor: default;
+					}
+
+					.image {
+						background-size: contain;
+						background-position: center top;
+						flex-grow: 1;
+						margin-bottom: 10px;
+						transition: transform (@time-selection * 1.2) @transition-ease-out-back--big;
+						transform: scale(1.001, 1.001);
+						width: 100%;
+					}
+
+					.caption {
+						.font-style--body-16-body();
+						color: @color-black-text-light;
+						flex-shrink: 0;
+						line-height: 17px;
+						text-align: center;
+						width: 100%;
+						z-index: 1;
+					}
+
+					.check {
+						background-image: url("./../../images/page-statements/checkmark.svg");
+						background-position: center;
+						background-repeat: no-repeat;
+						background-size: contain;
+						height: 30px;
+						opacity: 1;
+						position: absolute;
+						right: 10px;
+						top: 10px;
+						width: 30px;
+						transform: scale(0, 0);
+						transition: transform @time-selection @transition-ease-out-back--small;
+
+						@media @media-small {
+							height: 43px;
+							right: 15px;
+							top: 15px;
+							width: 43px;
+						}
+
+						@media @media-medium {
+							height: 50px;
+							width: 50px;
+						}
+
+						@media @media-large {
+							height: 56px;
+							right: 18px;
+							top: 18px;
+							width: 56px;
+						}
+					}
+
+					.selector {
+						position: absolute;
+						box-sizing: border-box;
+						top: 50%;
+						left: 50%;
+						width: 300px;
+						height: 300px;
+						margin: -150px;
+						border-radius: 150px;
+						background-color: #2d3e4f; /* Overwritten later */
+						transform: scale(0, 0);
+						transition: all @time-selection cubic-bezier(0.23, 1, 0.32, 1);
+
+						@media @media-small {
+							width: 350px;
+							height: 350px;
+							margin: -175px;
+							border-radius: 175px;
+						}
+
+						@media @media-medium {
+							width: 400px;
+							height: 400px;
+							margin: -200px;
+							border-radius: 200px;
+						}
+					}
+
+
+					&.is-selected {
+						box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.4);
+
+						.check {
+							opacity: 1;
+							transform: scale(1, 1);
+						}
+
+						.caption {
+							color: @color-white-text;
+						}
+
+						.selector {
+							transform: scale(1.4, 1.4);
+						}
+					}
+
+					&:hover {
+						.image {
+							transform: scale(1.1, 1.1);
+						}
+					}
+
+					&:nth-child(n+9) {
+						display: none;
+
+						@media @media-small-only {
+							display: flex;
+						}
+					}
+				}
+			}
+		}
+
+		.footer {
+			.page-side-padding();
+			.dimension-max-width-plus-side-margins--max-width();
+			margin: 0 auto;
+			box-sizing: border-box;
+			overflow: hidden;
+			padding-bottom: 30px;
+
+			@media @media-medium {
+				padding-bottom: 0;
+			}
+
+			.button-next {
+				margin: 15px 0;
+				opacity: 1;
+				text-align: center;
+				transition: all 0.2s ease-out;
+				width: 100%;
+				background: @color-red;
+
+				&:hover {
+					background: @color-red--hover;
+				}
+
+				&:active {
+					background: @color-red--press;
+				}
+
+				@media @media-small {
+					width: auto;
+				}
+
+				&.disabled {
+					transform: translate(0px, 50px);
+					opacity: 0;
+					cursor: default;
+					pointer-events: none;
+				}
+			}
+		}
+	}
+
+	&.direction-rtl {
+		.content .body .statements .statement {
+			@media @media-small-only {
+				&:nth-child(3n) {
+					margin-right: 15px;
+				}
+
+				&:nth-child(3n-2) {
+					margin-right: 0;
+				}
+			}
+
+			@media @media-medium {
+				&:nth-child(4n) {
+					margin-right: 15px;
+				}
+
+				&:nth-child(4n-3) {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}

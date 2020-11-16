@@ -1,0 +1,62 @@
+@import (reference) "vars-colors.less";
+@import (reference) "vars-fonts.less";
+@import (reference) "vars-index.less";
+@import (reference) "vars-queries.less";
+@import (reference) "vars-transitions.less";
+@import (reference) "mixins.less";
+@import (reference) "ui-common.less";
+
+.pageCover--404 {
+    background: @color-bg-gradient-start; /* Old browsers */
+	background: -moz-linear-gradient(top, @color-bg-gradient-404-start 50%, @color-bg-gradient-404-end 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, @color-bg-gradient-404-start 50%,@color-bg-gradient-404-end 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, @color-bg-gradient-404-start 50%,@color-bg-gradient-404-end 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+    & > .content {
+        & > .inner {
+            & > .middle {
+                width: 100%;
+
+                justify-content: flex-end;
+                & > .body {
+                    flex: 0 0 45%;
+
+                    & > .title {
+                        font-size: 160px;
+                        line-height: 1;
+                    }
+
+                    & > .subtitle {
+                        font-size: 60px;
+                        font-weight: 700;
+                        line-height: 1;
+                        text-align: left;
+
+                        @media @media-tiny {
+                            font-size: 50px;
+                            text-align: center;
+                        }
+                    }
+                }
+
+                & > .head {
+                    order: 0;
+                    margin-right: 65%;
+                    
+					@media @media-small {
+                        order: 2;
+                        margin-left: 0;
+                        margin-right: 45%;
+                    }
+
+                    @media @media-tiny {
+                        order: 2;
+                        margin-left: 0;
+                        margin-right: 20%;
+                        margin-top: -10vh;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,323 @@
+@import (reference) "vars-colors.less";
+@import (reference) "vars-fonts.less";
+@import (reference) "vars-index.less";
+@import (reference) "vars-queries.less";
+@import (reference) "vars-transitions.less";
+@import (reference) "mixins.less";
+@import (reference) "ui-common.less";
+
+@transition-time-hovers: 0.2s;
+@transition-time-header: 0.2s;
+@transition-time-body: 0.2s;
+@transition-time-question: 0.4s;
+@transition-time-toggles: 0.2s;
+
+@divider-color: rgba(0, 0, 0, 0.1);
+@divider-height: 1px;
+
+.pagePreview {
+	background-color: @color-bg;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	margin: 0;
+	overflow: auto;
+	padding: 0;
+	position: relative;
+	width: 100%;
+	color: @color-white-text;
+	padding: 30px;
+
+	& > .common-language-menu {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+
+		.direction-rtl& {
+			right: auto;
+			left: 20px;
+		}
+	}
+
+	& > .container {
+		& > .content {
+			margin-top: 50px;
+
+			& > .title {
+				.font-style--headline-24-title();
+			}
+
+			& > hr {
+				height: 1px;
+				width: 100%;
+				border: none;
+				background: @color-white-text;
+				margin: 20px 0;
+				opacity: 0.5;
+			}
+
+			& > .body {
+				& > .subtitle {
+					.font-style--headline-22-subtitle();
+					margin: 24px 0 16px;
+				}
+
+				&.body-tool {
+					max-width: 713px;
+
+					/* Simulating page-all-tools */
+					&.container-all-tools {
+						.common-tool-box-small {
+							flex-direction: row;
+
+							& > .text {
+								.flex-full-width();
+							}
+						}
+					}
+
+					&.container-printed-tool {
+						/* Same as .pagePrintReport > .global-tool */
+					}
+				}
+
+				&.body-bio {
+					.pageAbout {
+						display:block;
+
+						.bio {
+							width: 275px;
+						}
+					}
+				}
+
+				&.body-effects {
+					@color-border: rgba(0, 0, 0, 0.1);
+					@color-text: @color-black-text;
+
+					.container {
+						overflow: auto;
+						background: @color-white-default;
+						color: @color-text;
+						font-size: 11px;
+						padding: 0;
+						margin: 0;
+						box-sizing: border-box;
+
+						position: fixed;
+						top: 0;
+						bottom: 0;
+						left: 0;
+						right: 220px;
+
+						z-index: 1000;
+
+						* {
+							box-sizing: border-box;
+						}
+
+						.content {
+							padding: 20px;
+							position: absolute;
+							min-width: 100%;
+
+							& > .section {
+								& > .row {
+									display: flex;
+									flex-wrap: nowrap;
+									min-width: 100%;
+									box-sizing: border-box;
+									height: 60px;
+
+									&.header {
+										font-weight: bold;
+										background: rgba(0, 0, 0, 0.1);
+										height: 70px;
+									}
+
+									.required {
+										color: red;
+										font-size: 0.9em;
+										margin: 0 4px;
+									}
+
+									& > div {
+										box-sizing: border-box;
+										display: flex;
+										align-items: center;
+										flex: 1 0 0;
+										border-left: 1px solid @color-border;
+										border-top: 1px solid @color-border;
+										padding: 0 10px;
+
+										&:last-child {
+											border-right: 1px solid @color-border;
+										}
+									}
+
+									& > .column-box {
+										flex-basis: 30px;
+										width: 30px;
+										justify-content: center;
+									}
+
+									& > .column-long {
+										flex-basis: 200px;
+										width: 200px;
+									}
+
+									& > .column-image {
+										flex-basis: 40px;
+										width: 40px;
+										padding: 0;
+										position: relative;
+
+										& > div {
+											position: absolute;
+											top: 0;
+											bottom: 0;
+											right: 0;
+											left: 0;
+											background-size: contain;
+											background-repeat: no-repeat;
+											background-position: center;
+											border-width: 3px;
+											border-style: solid;
+										}
+									}
+
+									& > .column-effect {
+										flex-basis: 40px;
+										width: 40px;
+										justify-content: center;
+										position: relative;
+
+										&.header {
+											word-wrap: break-all;
+											word-wrap: break-word;
+											.word-wrap-url();
+											padding: 0 2px;
+											font-size: 0.9em;
+										}
+
+										& > .cell {
+											position: absolute;
+											top: 0;
+											left: 0;
+											right: 0;
+											bottom: 0;
+											display: flex;
+											justify-content: center;
+											align-items: center;
+											&.active {
+												color: @color-white-text;
+											}
+
+											&.top {
+												bottom: 50%;
+												border: 3px solid green;
+
+												&.active {
+													border: 3px solid green;
+													background: green;
+												}
+											}
+
+											&.bottom {
+												top: 50%;
+												border: 3px solid red;
+
+												&.active {
+													background: red;
+												}
+											}
+										}
+									}
+
+									&.statement {
+										&.visible {
+											& > .column-long {
+												cursor: pointer;
+											}
+											& > .column-image {
+												cursor: pointer;
+											}
+										}
+									}
+
+									&.invisible {
+										//color: fade(@color-text, 20%);
+
+										& > div > * {
+											opacity: 0.2;
+										}
+									}
+								}
+
+								&:last-child {
+									border-bottom: 1px solid @color-border;
+								}
+							}
+						}
+					}
+
+					.container-right {
+						overflow: auto;
+						background: @color-white-default;
+						color: @color-text;
+						font-size: 11px;
+						padding: 0;
+						margin: 0;
+						box-sizing: border-box;
+
+						position: fixed;
+						top: 0;
+						bottom: 0;
+						right: 0;
+						width: 220px;
+
+						z-index: 1000;
+
+						& > .content {
+							padding: 10px;
+							.font-family--headline();
+
+							& > .title {
+								font-size: 16px;
+								padding: 10px 0;
+								border-bottom: 1px solid @color-border;
+							}
+
+							& > .threat {
+								& > .title {
+									font-size: 15px;
+									font-size: 13px;
+									padding: 30px 0 12px;
+									border-bottom: 1px solid @color-border;
+								}
+
+								& > .tool {
+									.font-family--headline-regular();
+									font-size: 12px;
+									display: flex;
+									align-content: stretch;
+									padding: 6px 0;
+
+									& > .name {
+										flex: 0 1 80%;
+									}
+
+									& > .points {
+										text-align: right;
+										flex: 1 0 20%;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

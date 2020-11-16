@@ -1,0 +1,115 @@
+@import (reference) "vars-colors.less";
+@import (reference) "vars-fonts.less";
+@import (reference) "vars-index.less";
+@import (reference) "vars-queries.less";
+@import (reference) "vars-transitions.less";
+@import (reference) "mixins.less";
+@import (reference) "animations.less";
+@import (reference) "ui-common.less";
+
+.overlayThreatMenu {
+	& > .mask {
+		& > .content {
+			pointer-events: all;
+
+			& > .wrapper {
+				.dimension-max-width-plus-side-margins--max-width();
+				margin: 0;
+				padding: 0 20px;
+				position: relative;
+				width: 100%;
+
+				@media @media-small {
+					padding: 0 32px;
+				}
+
+				& > .body {
+					& > .header {
+						align-items: center;
+						border-bottom: 1px solid @color-black-xfade;
+						display: flex;
+						height: 66px;
+
+						@media @media-small {
+							height: 80px;
+						}
+
+						& > h5 {
+							.font-style--body-16-body();
+							color: black;
+							margin: 0;
+						}
+					}
+
+					& > .threat-list {
+						.reset-list();
+						padding: 0 0 20px 30px;
+
+						@media @media-small {
+							padding: 0 0 32px 30px;
+						}
+
+						& > .threat-list-item {
+							align-items: center;
+							border-bottom: 1px solid @color-black-xfade;
+							display: flex;
+							cursor: pointer;
+							position: relative;
+
+							& > .checkmark {
+								align-items: center;
+								display: flex;
+								height: 100%;
+								left: -30px;
+								position: absolute;
+
+								&.icon {
+									background-size: contain;
+									transition: all .2s;
+								}
+
+								&.is-active > .icon {
+									height: 10px;
+									margin-left: 0;
+									margin-right: 0;
+									opacity: 1;
+									width: 15px;
+								}
+							}
+
+							& > .threat-name {
+								.font-style--body-18-secondary-button-label();
+								color: @color-black-text;
+								font-weight: 700;
+								background: transparent;
+								height: 60px;
+								border: 0;
+								outline: none;
+								padding: 0;
+								text-align: left;
+								width: 100%;
+								cursor: inherit;
+
+								&:hover {
+									text-decoration: underline;
+								}
+
+								.accessibility-element-yellow-child(~"span");
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&.direction-rtl {
+		& > .mask > .content > .wrapper {
+			& > .body {
+				.threat-list-item .threat-name {
+					text-align: right;
+				}
+			}
+		}
+	}
+}

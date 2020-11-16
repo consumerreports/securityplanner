@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="<%= htmlWebpackPlugin.options.language %>">
+<head>
+	<meta charset="utf-8">
+
+	<!-- Metadata: main -->
+	<title><%= htmlWebpackPlugin.options.title %></title>
+
+	<!-- Metadata: browser icons -->
+	<link rel="shortcut icon" href="<%= require('./../images/meta/favicon.ico') %>"/>
+	<link rel="icon" href="<%= require('./../images/meta/favicon-16.png') %>" sizes="16x16">
+	<link rel="icon" href="<%= require('./../images/meta/favicon-32.png') %>" sizes="32x32">
+	<link rel="icon" href="<%= require('./../images/meta/favicon-64.png') %>" sizes="64x64">
+	<link rel="apple-touch-icon-precomposed" href="<%= require('./../images/meta/head-152.png') %>">
+
+	<!-- Sharing metadata -->
+	<meta name="description" content="Improve your online safety with tools for your needs. Answer a few simple questions to get personalized recommendations of free and open-source software. It's confidential -- no personal information is stored, and we won't access any of your online accounts.">
+	<meta name="keywords" content="online, safety, tools, security, privacy">
+	<link rel="canonical" href="https://<%= htmlWebpackPlugin.options.url %>" />
+
+	<!-- Sharing: Twitter and Facebook -->
+	<meta property="og:title" content="Security Planner - Improve your online safety with tools for your needs."/>
+	<meta property="og:site_name" content="Security Planner"/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:description" content="Answer a few simple questions to get personalized recommendations of free and open-source software. It's confidential -- no personal information is stored, and we won't access any of your online accounts.">
+	<meta property="og:url" content="https://<%= htmlWebpackPlugin.options.url %>"/>
+	<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.url %>/<%= require('./../images/meta/head-260.png') %>">
+
+	<!-- Styles -->
+	<link rel="stylesheet" href="css/app.css">
+<% for (var css in htmlWebpackPlugin.files.css) { %>	<link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[css] %>">
+<% } %>
+	<!-- Metadata: mobile devices -->
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+	<!-- Content Security Policy -->
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.google-analytics.com http://www.google-analytics.com; img-src data: https: http:">
+</head>
+<body>
+	<div class="global-error-message">
+		<div class="content">
+			<div class="title">Improve your safety with tools for your needs.</div>
+			<div class="hr-wrapper">
+				<hr class="hr"/>
+			</div>
+			<div class="body">Answer a few simple questions to get personalized recommendations of free and open-source software. It's confidential -- no personal information is stored, and we don't access any of your online accounts.</div>
+			<div class="dialog">
+				<img src="<%= require('./../images/ui/icon-warning.svg') %>" alt="Warning Icon">
+				<div class="body">Your browser doesn't support some features used in this app. Please upgrade to <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> or <a href="https://www.google.com/chrome/browser/">Chrome</a> for a better experience.</div>
+			</div>
+		</div>
+		<div class="image"/>
+	</div>
+	<script type="text/javascript">
+		var googleAnalyticsID = "<%= htmlWebpackPlugin.options.googleAnalyticsID %>";
+	</script>
+<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>	<script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+<% } %></body>
+</html>

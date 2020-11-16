@@ -1,0 +1,87 @@
+@import (reference) "vars-transitions.less";
+
+/* Animation Mixins */
+.share-showing(@time-animation, @time-delay) {
+	animation: scale-in @time-animation @transition-ease-out-back--long-bounce @time-delay, fade-in @time-animation*0.55 ease-in @time-delay;
+	animation-fill-mode: forwards;
+}
+
+.share-hiding(@time-animation, @time-delay) {
+	animation: scale-out @time-animation*0.55 ease-out @time-delay, fade-out @time-animation*0.5 linear @time-delay;
+	animation-fill-mode: forwards;
+}
+
+/* Keyframe Animations */
+@keyframes scale-in {
+	from {
+		transform: scale(0.2, 0.2);
+	}
+
+	to {
+		transform: scale(1, 1);
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes scale-out {
+	from {
+		transform: scale(1, 1);
+	}
+
+	to {
+		transform: scale(0.5, 0.5);
+	}
+}
+
+@keyframes fade-out {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes tools-clip-show {
+	from {
+		clip: rect(30vh 70vw 70vh 30vw);
+	}
+
+	to {
+		clip: rect(0vh 100vw 100vh 0vw);
+	}
+}
+
+@keyframes tools-clip-hide {
+	from {
+		clip: rect(0vh 100vw 100vh 0vw);
+	}
+
+	to {
+		clip: rect(45vh 55vw 55vh 45vw);
+	}
+}
+
+@keyframes rotate-close {
+	0% {
+		transform: rotateZ(-90deg);
+	}
+
+	70% {
+		transform: rotateZ(15deg);
+	}
+
+	100% {
+		transform: rotateZ(0deg);
+	}
+}
