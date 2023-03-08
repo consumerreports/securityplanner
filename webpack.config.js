@@ -206,9 +206,9 @@ module.exports = (env, argv) => {
 			},
 		}),
 		new webpack.DefinePlugin({
-			__SPACE_ID__ : JSON.stringify(isProd ? "ta4xc5av592v" : "dyix407qb7va"),
-			__DELIVERY_KEY__ : JSON.stringify(isProd ? "c2a21ef1c90c40593f8a39fbf986c2cd3cff339fac21a4e04f66e3d7011abe1d" : "bRLrb2Uh9Amd4zUc86bbQXvW9ZqzPhkz6oCVq2WDlA4"),
-			__PREVIEW_KEY__ : JSON.stringify(isProd ? "5d9f6f7bfc0f438d5bd9e24c699b7bb84631aa1894b26d1c07a5b43ca225f19e" : "dIuAqc2YhhwTIlkviZ7aJYnkqQwnqOqTm33ue2Nidt0")
+			__SPACE_ID__ : JSON.stringify("dyix407qb7va"),
+			__DELIVERY_KEY__ : JSON.stringify("G0cALAOlXKUPMFWQRb1FrQVLx0lxt_BtiE0AKisdZfU"),
+			__PREVIEW_KEY__ : JSON.stringify("PP-2_3Dhyy0j4iJq2x7wv_AzpLu8CW_J2r-jVWgRr54")
 		}),
 		new HtmlWebpackPlugin({
 			title: METADATA.title,
